@@ -205,7 +205,7 @@ export function SuccessScreen() {
 
         {/* Main Message */}
         <motion.div
-          className="bg-white/90 backdrop-blur-xl rounded-3xl p-10 shadow-2xl relative overflow-hidden"
+          className="bg-white/90 backdrop-blur-xl rounded-3xl p-8 shadow-2xl relative overflow-hidden"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
@@ -274,12 +274,12 @@ export function SuccessScreen() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.6, duration: 0.6 }}
           >
-            <div className="relative rounded-xl shadow-lg border-4 border-pink-200 bg-gradient-to-br from-pink-50 to-rose-50 flex items-center justify-center"
+            <div className="relative rounded-xl shadow-lg border-4 border-pink-200 bg-gradient-to-br from-pink-50 to-rose-50 overflow-hidden"
                  style={{ width: '300px', height: '300px' }}>
               <img
                 src="https://i.ibb.co/S45YjWDG/Untitled-design.png"
                 alt="Special message"
-                className="rounded-xl max-w-full max-h-full object-contain"
+                className="w-full h-full object-cover"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   // Show fallback content
