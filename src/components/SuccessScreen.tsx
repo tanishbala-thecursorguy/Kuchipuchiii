@@ -52,21 +52,35 @@ export function SuccessScreen() {
     >
       {/* Static Background Images */}
       {staticImages.map((image, index) => (
-        <img
+        <div
           key={index}
-          src={image.src}
-          alt=""
-          className="absolute pointer-events-none select-none rounded-lg"
+          className="absolute pointer-events-none select-none rounded-lg flex items-center justify-center"
           style={{
             width: '100px',
-            height: 'auto',
+            height: '100px',
             opacity: 0.25,
             left: `${image.x}%`,
             top: `${image.y}%`,
             transform: 'translate(-50%, -50%)',
             zIndex: 0,
+            backgroundColor: 'rgba(255, 182, 193, 0.2)',
+            border: '1px solid rgba(255, 182, 193, 0.3)',
           }}
-        />
+        >
+          <img
+            src={image.src}
+            alt=""
+            className="w-full h-full object-cover rounded-lg"
+            onError={(e) => {
+              // If image fails to load, keep the placeholder div
+              e.currentTarget.style.display = 'none';
+            }}
+            loading="lazy"
+          />
+          <div className="absolute inset-0 flex items-center justify-center text-pink-300 text-xs">
+            💖
+          </div>
+        </div>
       ))}
       {/* Heart rain */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -260,12 +274,29 @@ export function SuccessScreen() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 1.6, duration: 0.6 }}
           >
-            <img
-              src="https://i.ibb.co/S45YjWDG/Untitled-design.png"
-              alt="Special message"
-              className="rounded-xl shadow-lg max-w-full h-auto border-4 border-pink-200"
-              style={{ maxHeight: '300px' }}
-            />
+            <div className="relative rounded-xl shadow-lg border-4 border-pink-200 bg-gradient-to-br from-pink-50 to-rose-50 flex items-center justify-center"
+                 style={{ width: '300px', height: '300px' }}>
+              <img
+                src="https://i.ibb.co/S45YjWDG/Untitled-design.png"
+                alt="Special message"
+                className="rounded-xl max-w-full max-h-full object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  // Show fallback content
+                  const parent = e.currentTarget.parentElement;
+                  if (parent) {
+                    parent.innerHTML = `
+                      <div class="flex flex-col items-center justify-center h-full p-6 text-center">
+                        <div class="text-6xl mb-4">💌</div>
+                        <div class="text-pink-600 font-bold text-xl mb-2">Our Special Moment</div>
+                        <div class="text-pink-500 text-sm">Together Forever</div>
+                      </div>
+                    `;
+                  }
+                }}
+                loading="eager"
+              />
+            </div>
           </motion.div>
 
           {/* Romantic Message */}
